@@ -7,6 +7,7 @@ project(genericio)
   find_package(MPI REQUIRED)
 
   set(CMAKE_CXX_FLAGS "-O3 -D__STDC_CONSTANT_MACROS -fopenmp -fPIC")
+  set(CMAKE_C_FLAGS "-O3 -D__STDC_CONSTANT_MACROS -fopenmp -fPIC")
 
   # Compiles dependencies
   add_subdirectory(thirdparty/sqlite)
@@ -21,7 +22,7 @@ project(genericio)
   link_directories(${BLOSC_LIBRARY_DIRS})
 
   # Builds library
-  add_library(genericio STATIC src/GenericIO.cxx)
+  add_library(genericio SHARED src/GenericIO.cxx)
   target_link_libraries(genericio ${BLOSC_LIBRARIES} sz sqlite ${MPI_CXX_LIBRARIES})
 
   # Builds binaries
